@@ -1,3 +1,3 @@
 public interface Robbable {
-    public abstract int beRobbed();
+    public int beRobbed();
 }
