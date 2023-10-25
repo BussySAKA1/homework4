@@ -1,12 +1,16 @@
-public class TrickOrTreater{
-    private String name;
-    private int age;
-    private int numCandy;
+public abstract class TrickOrTreater implements Comparable<TrickOrTreater> {
+    protected String name;
+    protected int age;
+    protected int numCandy;
 
     public TrickOrTreater(String name, int age, int numCandy) {
-        this.name = name;
-        this.age = age;
-        this.numCandy = numCandy;
+        this.name = (name != null && !name.trim().isEmpty()) ? name : "Charlie Brown";
+        this.age = (age >= 0 && age <= 12) ? age : 8;
+        this.numCandy = (numCandy >= 0) ? numCandy : 0;
+    }
+
+    public TrickOrTreater() {
+        this("Charlie Brown", 8, 0);
     }
 
     protected void gainCandy(int candyAmt) {
@@ -24,13 +28,19 @@ public class TrickOrTreater{
         return String.format("%s/%d/%d", name, age, numCandy);
     }
 
-    // @Override
-    // public int compareTo() {
+    @Override
+    public int compareTo(TrickOrTreater other) {
+        if (this.numCandy != other.numCandy) {
+            return Integer.compare(other.numCandy, this.numCandy);
+        }
+        return Integer.compare(this.age, other.age);
 
-    // }
+    }
 
     public int getNumCandy() {
         return numCandy;
     }
+
+    public abstract void trickOrTreat();
     
 }
